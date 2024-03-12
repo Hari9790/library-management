@@ -4,35 +4,47 @@
 
 {% block head %}
 <title>Login</title>
+<link rel="stylesheet" href="{% static '/css/sign-in.css' %}" />
 {% endblock head %}
 
-{% block content %}
-<body class='d-block m-auto w-100'>
-  
-<main >
-<form class="form-signin w-full bg-dark p-4 rounded-5">
-  
-  <h1 class="h3 mb-3 fw-normal text-secondary">Please sign in</h1>
 
-  <div class="form-floating">
-    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-    <label for="floatingInput">Email address</label>
-  </div>
-  <div class="form-floating">
-    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Password</label>
-  </div>
+{% block navbar %}
 
-  <div class="form-check text-start my-3">
-    <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-    <label class="form-check-label" for="flexCheckDefault">
-      Remember me
-    </label>
-  </div>
-  <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-  <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
-</form>
-</main>
-<div></div>
-</body>
 {% endblock %}
+
+{% block avatar %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="mt-5">
+  <div class="form-signin w-100 m-auto py-4 bg-body-tertiary shadow card">
+    <h1 class="h3 mb-3 fw-semibold text-center py-3">Login</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-floating mb-2">
+        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
+        <label for="floatingInput">Username</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <button type="submit" class="btn btn-success w-100 py-2" >Login</button>
+      <br>
+      <!-- {% if message %}
+      <p class="errorbox">{{message}}</p>
+      {% endif %} -->
+
+    </form>
+    <div class="my-3">
+      <!-- <a class="link-primary">Forgot password?</a> -->
+    </div>
+    <a class="btn btn-primary w-100 py-2" href="{% url 'signup' %}">Register new</a>
+  </div>
+</div>
+</script>
+{% endblock %}
+
+

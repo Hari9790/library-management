@@ -1,0 +1,63 @@
+{% extends 'panel/index.html' %}
+
+{% load static %}
+
+{% block head %}
+<title>Create account</title>
+<link rel="stylesheet" href="{% static '/css/sign-up.css' %}" />
+{% endblock head %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block avatar %}
+{% endblock %}
+
+
+{% block content %}
+<div class="mt-5">
+  <div class="form-signin w-100 m-auto py-2 px-2 bg-body-tertiary shadow card">
+    <form method="post" class="p-2" >
+        {% csrf_token %}
+        <h1 class="h3 mb-3 fw-semibold text-center py-3">Create Account</h1>
+        <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="floatingInput" name="fullname" placeholder="Fullname">
+            <label for="floatingInput">Fullname</label>
+        </div>
+        <div class="form-floating mb-1">
+            <input type="number" class="form-control" id="floatingInput" name="regno" placeholder="Reg no">
+            <label for="floatingInput">Reg number</label>
+        </div>
+        <div class="form-floating mb-1">
+            <input type="email" class="form-control" id="floatingInput" name="email" placeholder="abc@gmail.com">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-1">
+            <input type="password" class="form-control" id="floatingInput" name="password" placeholder="Password">
+            <label for="floatingInput">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingInput" name="confpass" placeholder="Confirm Password">
+            <label for="floatingInput">Confirm password</label>
+        </div>
+        <div class="mb-2 mt-2">
+            <button class="btn btn-success w-100" type="submit" >Create Account</button>
+        </div>
+        <hr />
+            <p class="text-center">Already have an account ? <a href="{% url 'login' %}">Login here</a></p>
+
+            {% if error %}
+                            <p class="errorbox">{{error}}</p>
+                        {% endif %}
+            
+
+
+    </form>
+  </div>
+</div>
+
+
+</script>
+{% endblock %}
+

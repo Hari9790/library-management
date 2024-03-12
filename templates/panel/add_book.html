@@ -1,0 +1,70 @@
+{% extends 'panel/index.html' %}
+{% load static %}
+
+{% block head %}
+<title>Add Book</title>
+<link rel="stylesheet" href="{% static '/css/sign-in.css' %}" />
+{% endblock %}
+
+{% block navbar %}
+<ul class="d-flex navbar-nav align-items-center ms-auto">
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="{% url 'home' %}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'books' %}">Books</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'bookings' %}">Bookings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'students' %}">Students</a>
+    </li>
+
+    <li class="nav-item ms-3">
+        <a class="btn btn-sm btn-success" href="{% url 'addbook' %}">Add Book</a>
+    </li>
+    <li class="nav-item active ms-3">
+        <a class="btn btn-sm btn-outline-success" href="{% url 'addstudent' %}">Add Student</a>
+    </li>
+  </ul>
+  {% endblock %}
+
+  {% block content %}
+  <div class="mt-5">
+    <div class="form-signin w-100 m-auto py-4 bg-body-tertiary shadow card">
+      <h1 class="h3 mb-3 fw-semibold text-center py-3">Add Book</h1>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-floating">
+            <input class="form-control" type="text" name="title" placeholder="Title" >
+            <label for="floatingInput">Title</label>
+        </div>
+        <div class="form-floating">
+            <input class="form-control" type="text" name="author" placeholder="Author name" style="margin-top: 10px;">
+            <label for="floatingPassword">Author</label>
+        </div>
+        <div class="form-floating">
+            <input class="form-control" type="text" name="isbn_number" placeholder="ISBN number" style="margin-top: 10px;">
+            <label for="floatingPassword">ISBN Number</label>
+        </div>
+        <div class="form-floating">
+            <input class="form-control" type="text" placeholder="Copies" name="copies" style="margin-top: 10px;">
+            <label for="floatingPassword">Copies</label>
+        </div>
+        <button type="submit" class="btn btn-warning w-100 py-2" style="margin-top: 10px;" >Add Book</button>
+        <br>
+
+      </form>
+    </div>
+  </div>
+  {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+    <a class="ms-2 btn btn-primary" href="{% url 'books' %}">View</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endif %}
+  {% endblock %}

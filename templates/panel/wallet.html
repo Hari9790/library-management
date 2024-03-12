@@ -1,0 +1,108 @@
+{% extends 'panel/index.html' %}
+
+{% load static %}
+
+{% block head %}
+<title>Wallet</title>
+{% endblock %}
+
+{% block navbar %}
+<ul class="d-flex navbar-nav align-items-center ms-auto">
+    <li class="nav-item">
+      <a class="nav-link"  href="{% url 'home' %}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'books' %}">Books</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'bookings' %}">Bookings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active link-success fw-medium" aria-current="page" href="{% url 'wallet' %}">Wallet</a>
+    </li>
+
+    {% if user.is_superuser %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'students' %}">Students</a>
+    </li>
+    <li class="nav-item ms-3">
+        <a class="btn btn-sm btn-outline-success" href="{% url 'addbook' %}">Add Book</a>
+    </li>
+    <li class="nav-item ms-3">
+        <a class="btn btn-sm btn-outline-success" href="{% url 'addstudent' %}">Add Student</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endblock %}
+
+  {% block content %}
+  <div class="container-fluid">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4 mt-3">
+        <h3 class="text-body-secondary mb-0">Wallet</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xl-4 mb-4">
+            <div class="card shadow-sm border-start-success py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class="text-uppercase text-dark-emphasis fw-bold text-xs mb-3"><span>Balance</span></div>
+                            <div class="text-success fw-bold h2 mb-0 me-3"><span>₹ {{student.balance}}</span></div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4 mb-4">
+            <div class="card shadow-sm border-start-info py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class="text-uppercase text-dark-emphasis fw-bold text-xs mb-3"><span>Fine to be paid</span></div>
+                            <div class="row g-0 align-items-center">
+                                <div class="col-auto">
+                                    <div class="text-danger fw-bold h2 mb-0 me-3"><span>₹ {{total_fine}}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="row container-fluid">
+          <div class="card border-start-warning py-2">
+              <p class="text-primary m-0 fw-bold p-2">Recent Transactions</p>
+          
+                  <table class="table table-striped table-bordered" id="dataTable">
+                      <thead>
+                          <tr>
+                              <th>Transaction ID</th>
+                              <th>Time</th>
+                              <th>ISBN number</th>
+                              <th>Fine amount</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                            {% for tr in transactions %}
+                              <tr>
+                                  <td>{{tr.id}}</td>
+                                  <td>{{tr.payment_timestamp}}</td>                                                
+                                  <td>{{tr.book.isbn_number}}</td>
+                                  <td>{{tr.amount}}</td>
+                              </tr>
+                            {% endfor %}
+                      </tbody>
+                  </table>
+  
+                  <p class="successbox">Great! No pending returns currently</p>
+  
+          </div>
+      </div>
+    </div>
+</div>
+
+  {% endblock %}
